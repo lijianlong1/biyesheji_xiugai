@@ -1,0 +1,23 @@
+--- D:/biyesheji/similarity_way/CosineEmbeddingLoss.py
++++ D:/biyesheji/similarity_way/CosineEmbeddingLoss.py
+@@ -11,16 +11,16 @@
+         #self.con=torch.nn.Conv2d(1,1,kernel_size=3,stride=1,padding=1)
+         self.max_polling=torch.nn.MaxPool2d(kernel_size=2)
+         
+-        self.fc=torch.nn.Linear(16*16,128)
++        self.fc=torch.nn.Linear(256,128)
+     def forward(self,x):
+-        h0=torch.randn(self.num_layers*1,x.size(0),self.hidden_size)
++        h0=torch.rand(self.num_layers*1,x.size(0),self.hidden_size)
+         h0=h0.to(device)
+-        c0=torch.randn(self.num_layers*1,x.size(0),self.hidden_size)
++        c0=torch.rand(self.num_layers*1,x.size(0),self.hidden_size)
+         c0=c0.to(device)
+         out,_=self.lstm(x,(h0,c0))
+         #out=self.con(out)
+         out=self.max_polling(out)
+-        out=out.view(batch_size,-1)
++        out=out.view(-1,256)
+         out=self.fc(out)
+ #        out=self.sigmoid(out)
+         return out
